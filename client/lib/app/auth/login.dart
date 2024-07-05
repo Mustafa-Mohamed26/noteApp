@@ -1,4 +1,5 @@
 import 'package:client/components/customtextform.dart';
+import 'package:client/components/valid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -26,10 +27,16 @@ class _LoginState extends State<Login> {
                 children: [
                   Image.asset("images/logo.png", width: 200, height: 200),
                   CustomTextForm(
+                    valid: (val) {
+                      return validInput(val!, 5, 40);
+                    },
                     myController: email,
                     hint: "email",
                   ),
                   CustomTextForm(
+                    valid: (val) {
+                      return validInput(val!, 3, 10);
+                    },
                     myController: password,
                     hint: "password",
                   ),

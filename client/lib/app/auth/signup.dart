@@ -2,6 +2,7 @@
 
 import 'package:client/components/crud.dart';
 import 'package:client/components/customtextform.dart';
+import 'package:client/components/valid.dart';
 import 'package:client/constant/linkapi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,19 +25,22 @@ class _SignUpState extends State<SignUp> {
   TextEditingController password = TextEditingController();
 
   signUp() async {
-    isLoading = true;
-    setState(() {});
-    var response = await _crud.postRequest(linkSignUp, {
-      "username": username.text,
-      "email": email.text,
-      "password": password.text
-    });
-    isLoading = false;
-    setState(() {});
-    if (response['status'] == "success") {
-      Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
-    } else {
-      print("SignUp Fail");
+    if (formState.currentState!.validate()) {
+      isLoading = true;
+      setState(() {});
+      var response = await _crud.postRequest(linkSignUp, {
+        "username": username.text,
+        "email": email.text,
+        "password": password.text
+      });
+      isLoading = false;
+      setState(() {});
+      if (response['status'] == "success") {
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil("success", (route) => false);
+      } else {
+        print("SignUp Fail");
+      }
     }
   }
 
@@ -55,14 +59,23 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         Image.asset("images/logo.png", width: 200, height: 200),
                         CustomTextForm(
+                          valid: (val) {
+                            return validInput(val!, 3, 20);
+                          },
                           myController: username,
                           hint: "username",
                         ),
                         CustomTextForm(
+                          valid: (val) {
+                            return validInput(val!, 5, 40);
+                          },
                           myController: email,
                           hint: "email",
                         ),
                         CustomTextForm(
+                          valid: (val) {
+                            return validInput(val!, 3, 10);
+                          },
                           myController: password,
                           hint: "password",
                         ),
