@@ -1,3 +1,8 @@
+// ignore_for_file: prefer_final_fields, unnecessary_new
+
+import 'package:client/components/cardnote.dart';
+import 'package:client/components/crud.dart';
+import 'package:client/constant/linkapi.dart';
 import 'package:client/main.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +14,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Crud _crud = new Crud();
+
+  getNotes() async {
+    var response = await _crud
+        .postRequest(linkViewNotes, {"id": sharedPref.getString("id")});
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +32,8 @@ class _HomeState extends State<Home> {
           IconButton(
             onPressed: () {
               sharedPref.clear();
-              Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("login", (route) => false);
             },
             icon: Icon(Icons.exit_to_app),
           ),
@@ -33,29 +47,41 @@ class _HomeState extends State<Home> {
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
-            InkWell(
-              onTap: () {},
-              child: Card(
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: Image.asset(
-                          "images/logo.png",
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.fill,
-                        )),
-                    Expanded(
-                        flex: 2,
-                        child: ListTile(
-                          title: Text("title Note"),
-                          subtitle: Text("content note"),
-                        ))
-                  ],
-                ),
-              ),
-            )
+            FutureBuilder(
+                future: getNotes(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    if (snapshot.data['status'] == 'fail') {
+                      return const Center(
+                        child: Text(
+                          "the list is empty",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                        itemCount: snapshot.data['data'].length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, i) {
+                          return CardNotes(
+                              ontap: () {},
+                              title:
+                                  "${snapshot.data['data'][i]['notes_title']}",
+                              content:
+                                  "${snapshot.data['data'][i]['notes_content']}");
+                        });
+                  }
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: Text("Loading..."),
+                    );
+                  }
+                  return const Center(
+                    child: Text("Loading..."),
+                  );
+                }),
           ],
         ),
       ),
