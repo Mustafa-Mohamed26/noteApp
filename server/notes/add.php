@@ -3,7 +3,7 @@
 
     $title = filterRequest("title");
     $content = filterRequest("content");
-    $userId    = filterRequest("email");
+    $userId    = filterRequest("id");
 
     $stmt = $con->prepare("INSERT INTO `notes` (`notes_title`, `notes_content`, `notes_users`) VALUES (?, ?, ?)");
     $stmt->execute(array($title, $content, $userId));
