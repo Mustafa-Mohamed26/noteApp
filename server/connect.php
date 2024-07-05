@@ -7,7 +7,7 @@
     try{
         $con = new PDO($dsn, $username, $password, $option);
         $con -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        include "../server/functions.php";
+        include "../functions.php";
     }catch(PDOException $e){
         echo $e -> getMessage();
     }
