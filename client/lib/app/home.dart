@@ -1,3 +1,4 @@
+import 'package:client/main.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -14,6 +15,15 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("HOME"),
         backgroundColor: Colors.purple,
+        actions: [
+          IconButton(
+            onPressed: () {
+              sharedPref.clear();
+              Navigator.of(context).pushNamedAndRemoveUntil("login", (route) => false);
+            },
+            icon: Icon(Icons.exit_to_app),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -24,7 +34,7 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: [
             InkWell(
-              onTap: (){},
+              onTap: () {},
               child: Card(
                 child: Row(
                   children: [

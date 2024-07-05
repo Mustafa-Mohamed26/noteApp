@@ -5,6 +5,7 @@ import 'package:client/components/crud.dart';
 import 'package:client/components/customtextform.dart';
 import 'package:client/components/valid.dart';
 import 'package:client/constant/linkapi.dart';
+import 'package:client/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -36,6 +37,9 @@ class _LoginState extends State<Login> {
       isLoading = false;
       setState(() {});
       if (response['status'] == "success") {
+        sharedPref.setString("id", response['data']['id'].toString());
+        sharedPref.setString("username", response['data']['username']);
+        sharedPref.setString("email", response['data']['email']);
         Navigator.of(context).pushNamedAndRemoveUntil("home", (route) => false);
       } else {
         AwesomeDialog(
