@@ -4,7 +4,13 @@ class CardNotes extends StatelessWidget {
   final void Function()? ontap;
   final String title;
   final String content;
-  const CardNotes({super.key, required this.ontap, required this.title, required this.content});
+  final void Function()? onDelete;
+  const CardNotes(
+      {super.key,
+      required this.ontap,
+      required this.title,
+      required this.content,
+      required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +32,10 @@ class CardNotes extends StatelessWidget {
                 child: ListTile(
                   title: Text("$title"),
                   subtitle: Text("$content"),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: onDelete,
+                  ),
                 ))
           ],
         ),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unnecessary_new
+// ignore_for_file: prefer_final_fields, unnecessary_new, use_build_context_synchronously, unused_import
 
 import 'package:client/app/notes/edit.dart';
 import 'package:client/components/cardnote.dart';
@@ -70,8 +70,21 @@ class _HomeState extends State<Home> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, i) {
                           return CardNotes(
+                              onDelete: () async {
+                                var response = await _crud.postRequest(
+                                    linkDeleteNotes, {
+                                  "id": snapshot.data['data'][i]['notes_id']
+                                      .toString()
+                                });
+                                if (response['status'] == 'success') {
+                                  Navigator.of(context)
+                                      .pushReplacementNamed("home");
+                                }
+                              },
                               ontap: () {
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNotes(notes: snapshot.data['data'][i])));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => EditNotes(
+                                        notes: snapshot.data['data'][i])));
                               },
                               title:
                                   "${snapshot.data['data'][i]['notes_title']}",

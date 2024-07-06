@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unnecessary_new
+// ignore_for_file: prefer_final_fields, unnecessary_new, unused_import
 
 import 'package:client/components/crud.dart';
 import 'package:client/components/customtextform.dart';
