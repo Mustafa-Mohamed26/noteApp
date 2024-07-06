@@ -2,6 +2,8 @@ import 'package:client/app/auth/login.dart';
 import 'package:client/app/auth/signup.dart';
 import 'package:client/app/auth/success.dart';
 import 'package:client/app/home.dart';
+import 'package:client/app/notes/add.dart';
+import 'package:client/app/notes/edit.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
         'signup': (context) => const SignUp(),
         'home': (context) => const Home(),
         'success': (context) => const Success(),
+        'addnotes': (context) => const AddNotes(),
+        'editnots': (context) => const EditNotes(),
       },
     );
   }

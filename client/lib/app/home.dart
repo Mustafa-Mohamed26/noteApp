@@ -26,7 +26,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("HOME"),
+        title: const Text("HOME"),
         backgroundColor: Colors.purple,
         actions: [
           IconButton(
@@ -40,7 +40,9 @@ class _HomeState extends State<Home> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed("addnotes");
+        },
         child: Icon(Icons.add),
       ),
       body: Container(
