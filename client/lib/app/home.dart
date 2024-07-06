@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("login", (route) => false);
             },
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
           ),
         ],
       ),
@@ -46,10 +46,10 @@ class _HomeState extends State<Home> {
         onPressed: () {
           Navigator.of(context).pushNamed("addnotes");
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
             FutureBuilder(

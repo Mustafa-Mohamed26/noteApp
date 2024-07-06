@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_final_fields, unnecessary_import, use_build_context_synchronously, avoid_print, unnecessary_new
+// ignore_for_file: prefer_final_fields, unnecessary_import, use_build_context_synchronously, avoid_print, unnecessary_new, prefer_const_constructors
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:client/components/crud.dart';
@@ -58,9 +58,9 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: isLoading == true
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView(
                 children: [
                   Form(

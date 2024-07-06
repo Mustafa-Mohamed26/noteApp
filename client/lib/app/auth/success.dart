@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class Success extends StatefulWidget {
@@ -25,9 +27,9 @@ class _SuccessState extends State<Success> {
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("login", (route) => false);
             },
-            child: Text("Login"),
             textColor: Colors.white,
             color: Colors.purple,
+            child: Text("Login"),
           )
         ],
       ),

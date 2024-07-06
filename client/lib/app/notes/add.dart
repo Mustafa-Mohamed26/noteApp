@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_new, prefer_final_fields, use_build_context_synchronously
+// ignore_for_file: unnecessary_new, prefer_final_fields, use_build_context_synchronously, prefer_const_constructors, unnecessary_import
 
 import 'package:client/components/crud.dart';
 import 'package:client/components/customtextform.dart';
@@ -77,9 +77,9 @@ class _AddNotesState extends State<AddNotes> {
                       onPressed: () async {
                         await addNotes();
                       },
-                      child: Text("Add"),
                       textColor: Colors.white,
                       color: Colors.purple,
+                      child: Text("Add"),
                     ),
                   ],
                 ),

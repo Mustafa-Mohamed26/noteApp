@@ -82,18 +82,18 @@ class _SignUpState extends State<SignUp> {
                         MaterialButton(
                           color: Colors.purple,
                           textColor: Colors.white,
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 70, vertical: 10),
                           onPressed: () async {
                             await signUp();
                           },
-                          child: Text("Sign Up"),
+                          child: const Text("Sign Up"),
                         ),
                         Container(
                           height: 10,
                         ),
                         InkWell(
-                          child: Text("Login"),
+                          child: const Text("Login"),
                           onTap: () {
                             Navigator.of(context).pushNamed('login');
                           },
