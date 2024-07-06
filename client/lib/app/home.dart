@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_final_fields, unnecessary_new
 
+import 'package:client/app/notes/edit.dart';
 import 'package:client/components/cardnote.dart';
 import 'package:client/components/crud.dart';
 import 'package:client/constant/linkapi.dart';
 import 'package:client/main.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -68,7 +70,9 @@ class _HomeState extends State<Home> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, i) {
                           return CardNotes(
-                              ontap: () {},
+                              ontap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => EditNotes(notes: snapshot.data['data'][i])));
+                              },
                               title:
                                   "${snapshot.data['data'][i]['notes_title']}",
                               content:
