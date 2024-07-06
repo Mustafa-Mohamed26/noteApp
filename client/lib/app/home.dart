@@ -5,6 +5,7 @@ import 'package:client/components/cardnote.dart';
 import 'package:client/components/crud.dart';
 import 'package:client/constant/linkapi.dart';
 import 'package:client/main.dart';
+import 'package:client/model/notemodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -70,26 +71,25 @@ class _HomeState extends State<Home> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, i) {
                           return CardNotes(
-                              onDelete: () async {
-                                var response = await _crud.postRequest(
-                                    linkDeleteNotes, {
-                                  "id": snapshot.data['data'][i]['notes_id']
-                                      .toString()
-                                });
-                                if (response['status'] == 'success') {
-                                  Navigator.of(context)
-                                      .pushReplacementNamed("home");
-                                }
-                              },
-                              ontap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EditNotes(
-                                        notes: snapshot.data['data'][i])));
-                              },
-                              title:
-                                  "${snapshot.data['data'][i]['notes_title']}",
-                              content:
-                                  "${snapshot.data['data'][i]['notes_content']}");
+                            onDelete: () async {
+                              var response = await _crud.postRequest(
+                                  linkDeleteNotes, {
+                                "id": snapshot.data['data'][i]['notes_id']
+                                    .toString()
+                              });
+                              if (response['status'] == 'success') {
+                                Navigator.of(context)
+                                    .pushReplacementNamed("home");
+                              }
+                            },
+                            ontap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => EditNotes(
+                                      notes: snapshot.data['data'][i])));
+                            },
+                            noteModel:
+                                NoteModel.fromJson(snapshot.data['data'][i]),
+                          );
                         });
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {

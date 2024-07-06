@@ -8,6 +8,7 @@
     "formstate",
     "linkapi",
     "noteapp",
+    "notemodel",
     "ontap",
     "signup"
   ]
