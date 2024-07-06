@@ -31,4 +31,10 @@
         }
         
     }
+
+    function deleteFile($direction, $imageName){
+        if(file_exists($direction . "/" . $imageName)){
+            unlink($direction . "/" . $imageName);
+        }
+    }
 ?>
