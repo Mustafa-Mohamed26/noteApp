@@ -62,10 +62,23 @@ class _AddNotesState extends State<AddNotes> {
   }
 
   @override
+  // This function builds the UI for the Add Notes page.
+  // It returns a Scaffold widget which is the main container for the app's content.
+  // The Scaffold widget has an AppBar (the top bar of the app) and a body (the main content of the app).
+  // The AppBar has a title and a background color.
+  // The body of the Scaffold is a Container widget which has padding and a child which is a Form widget.
+  // The Form widget has a key and a child which is a ListView widget.
+  // The ListView widget has children which are different widgets such as CustomTextForm, MaterialButton, and Container.
+  // The CustomTextForm widgets are used to take input from the user for the title and content of the note.
+  // The MaterialButton widgets are used to select an image from the gallery or camera.
+  // When the user selects an image, the image is stored in the myFile variable.
+  // The last MaterialButton widget is used to add the note.
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // The title of the AppBar.
         title: Text("Add notes"),
+        // The background color of the AppBar.
         backgroundColor: Colors.purple,
       ),
       body: isLoading == true
@@ -76,6 +89,7 @@ class _AddNotesState extends State<AddNotes> {
                 key: formstate,
                 child: ListView(
                   children: [
+                    // A CustomTextForm widget for the title of the note.
                     CustomTextForm(
                       hint: "title",
                       myController: title,
@@ -83,6 +97,7 @@ class _AddNotesState extends State<AddNotes> {
                         return validInput(val!, 1, 40);
                       },
                     ),
+                    // A CustomTextForm widget for the content of the note.
                     CustomTextForm(
                       hint: "content",
                       myController: content,
@@ -90,8 +105,10 @@ class _AddNotesState extends State<AddNotes> {
                         return validInput(val!, 10, 255);
                       },
                     ),
+                    // A MaterialButton widget to select an image from the gallery or camera.
                     MaterialButton(
                       onPressed: () async {
+                        // Shows a modal bottom sheet with options to select an image from the gallery or camera.
                         showModalBottomSheet(
                           context: context,
                           builder: (context) => Container(
@@ -107,6 +124,7 @@ class _AddNotesState extends State<AddNotes> {
                                   ),
                                 ),
                                 InkWell(
+                                  // When the user taps on the gallery option, the image is selected from the gallery.
                                   onTap: () async {
                                     XFile? xFile = await ImagePicker()
                                         .pickImage(source: ImageSource.gallery);
@@ -125,6 +143,7 @@ class _AddNotesState extends State<AddNotes> {
                                   ),
                                 ),
                                 InkWell(
+                                  // When the user taps on the camera option, the image is selected from the camera.
                                   onTap: () async {
                                     XFile? xFile = await ImagePicker()
                                         .pickImage(source: ImageSource.camera);
@@ -147,19 +166,25 @@ class _AddNotesState extends State<AddNotes> {
                           ),
                         );
                       },
+                      // The text color and background color of the button.
                       textColor: Colors.white,
                       color: myFile == null ? Colors.purple : Colors.grey,
+                      // The text of the button.
                       child: Text("Choose image"),
                     ),
                     Container(
                       height: 20,
                     ),
+                    // A MaterialButton widget to add the note.
                     MaterialButton(
+                      // When the user taps on the button, the addNotes function is called.
                       onPressed: () async {
                         await addNotes();
                       },
+                      // The text color and background color of the button.
                       textColor: Colors.white,
                       color: Colors.purple,
+                      // The text of the button.
                       child: Text("Add"),
                     ),
                   ],

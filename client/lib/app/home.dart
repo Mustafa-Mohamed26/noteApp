@@ -26,14 +26,19 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  // This is the build method of the Home widget. It returns a Scaffold
+  // widget which contains the app bar, floating action button, and body.
   Widget build(BuildContext context) {
     return Scaffold(
+      // App bar with title and exit button
       appBar: AppBar(
         title: const Text("HOME"),
         backgroundColor: Colors.purple,
         actions: [
+          // Icon button for exiting the app
           IconButton(
             onPressed: () {
+              // Clear shared preferences and navigate to login screen
               sharedPref.clear();
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("login", (route) => false);
@@ -42,20 +47,26 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      // Floating action button for adding a new note
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // Navigate to the add notes screen
           Navigator.of(context).pushNamed("addnotes");
         },
         child: const Icon(Icons.add),
       ),
+      // Body of the home screen
       body: Container(
         padding: const EdgeInsets.all(10),
         child: ListView(
           children: [
+            // Future builder for getting the list of notes
             FutureBuilder(
                 future: getNotes(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  // Check if the data is available
                   if (snapshot.hasData) {
+                    // Check if the list is empty
                     if (snapshot.data['status'] == 'fail') {
                       return const Center(
                         child: Text(
@@ -65,13 +76,16 @@ class _HomeState extends State<Home> {
                         ),
                       );
                     }
+                    // Build the list of notes
                     return ListView.builder(
                         itemCount: snapshot.data['data'].length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, i) {
                           return CardNotes(
+                            // Delete note function
                             onDelete: () async {
+                              // Send a request to delete the note
                               var response =
                                   await _crud.postRequest(linkDeleteNotes, {
                                 "id": snapshot.data['data'][i]['notes_id']
@@ -80,26 +94,32 @@ class _HomeState extends State<Home> {
                                         ['notes_image']
                                     .toString()
                               });
+                              // If the delete was successful, navigate back to the home screen
                               if (response['status'] == 'success') {
                                 Navigator.of(context)
                                     .pushReplacementNamed("home");
                               }
                             },
+                            // Tap function for editing the note
                             ontap: () {
+                              // Navigate to the edit notes screen with the note data
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => EditNotes(
                                       notes: snapshot.data['data'][i])));
                             },
+                            // Note model for the note
                             noteModel:
                                 NoteModel.fromJson(snapshot.data['data'][i]),
                           );
                         });
                   }
+                  // Check if the data is still loading
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: Text("Loading..."),
                     );
                   }
+                  // If the data is not available, show a loading message
                   return const Center(
                     child: Text("Loading..."),
                   );
