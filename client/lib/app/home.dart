@@ -72,9 +72,12 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context, i) {
                           return CardNotes(
                             onDelete: () async {
-                              var response = await _crud.postRequest(
-                                  linkDeleteNotes, {
+                              var response =
+                                  await _crud.postRequest(linkDeleteNotes, {
                                 "id": snapshot.data['data'][i]['notes_id']
+                                    .toString(),
+                                "imageName": snapshot.data['data'][i]
+                                        ['notes_image']
                                     .toString()
                               });
                               if (response['status'] == 'success') {
