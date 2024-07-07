@@ -1,3 +1,4 @@
+import 'package:client/constant/linkapi.dart';
 import 'package:client/model/notemodel.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +21,8 @@ class CardNotes extends StatelessWidget {
           children: [
             Expanded(
                 flex: 1,
-                child: Image.asset(
-                  "images/logo.png",
+                child: Image.network(
+                  "$linkImageRoute/${noteModel.notesImage}",
                   width: 100,
                   height: 100,
                   fit: BoxFit.fill,
