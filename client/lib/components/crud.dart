@@ -1,10 +1,14 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:path/path.dart';
+
+String _basicAuth = 'Basic ${base64Encode(utf8.encode('wael:wael12345'))}';
+
+Map<String, String> myHeaders = {'authorization': _basicAuth};
 
 class Crud {
   getRequest(String url) async {
@@ -23,7 +27,8 @@ class Crud {
 
   postRequest(String url, Map data) async {
     try {
-      var response = await http.post(Uri.parse(url), body: data);
+      var response =
+          await http.post(Uri.parse(url), body: data, headers: myHeaders);
       if (response.statusCode == 200) {
         var responseBody = jsonDecode(response.body);
         return responseBody;
@@ -45,9 +50,10 @@ class Crud {
         filename: basename(file.path));
 
     request.files.add(multiPartFile);
-    
+    request.headers.addAll(myHeaders);
+
     data.forEach((key, value) {
-      request.fields[key] = value; 
+      request.fields[key] = value;
     });
     var myRequest = await request.send();
 
