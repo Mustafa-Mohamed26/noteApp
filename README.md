@@ -1,10 +1,11 @@
 # NoteApp 📝 - Flutter Notes Application
 
-**NoteApp** is a **Flutter-based** mobile application for managing notes efficiently, with a **PHP backend** for data storage and retrieval. It uses **state management** to ensure smooth user interactions and performance.
+**NoteApp** is a **Flutter-based** mobile application for managing notes efficiently, with a **PHP backend** and **MySQL database** for data storage and retrieval. It uses **state management** to ensure smooth user interactions and performance.
 
 ## 🔍 Features
 - ✅ **Create, Read, Update, and Delete (CRUD) notes**.
 - ✅ **Secure backend API** using PHP.
+- ✅ **MySQL database** for efficient data storage.
 - ✅ **State management** for better performance.
 - ✅ **User authentication and note synchronization**.
 - ✅ **Modern UI with Flutter widgets**.
@@ -23,8 +24,9 @@
    ```bash
    flutter run
    ```
-4. **Set up the PHP backend**:
-   - Configure your database.
+4. **Set up the PHP backend with MySQL**:
+   - Configure your MySQL database.
+   - Import the provided database schema.
    - Host the PHP scripts on a local or remote server.
    - Update the API URLs in the Flutter app accordingly.
 
@@ -41,4 +43,3 @@ This project is licensed under the **MIT License** – feel free to use and modi
 
 ---
 📩 **Have suggestions? Open an issue or contribute!** 🚀
-
